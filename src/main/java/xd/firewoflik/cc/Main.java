@@ -32,7 +32,7 @@ public final class Main extends JavaPlugin {
         this.commandManager = new CommandManager(this, executorService);
 
         AdminCommand adminCmd = new AdminCommand(this);
-        PluginCommand cmd = getCommand("customcommand");
+        PluginCommand cmd = getCommand("customcmd");
         if (cmd != null) {
             cmd.setExecutor(adminCmd);
             cmd.setTabCompleter(adminCmd);

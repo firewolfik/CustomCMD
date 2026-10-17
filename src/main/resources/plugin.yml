@@ -1,4 +1,4 @@
-name: CustomCommand
+name: CustomCMD
 version: '${project.version}'
 main: xd.firewoflik.cc.Main
 api-version: '1.21'
@@ -7,7 +7,7 @@ authors: [ firewolfik ]
 softdepend: [ Vault, PlaceholderAPI ]
 
 commands:
-  customcommand:
-    description: CustomCommand management
-    aliases: [ cc, mycmd, customcmd ]
+  customcmd:
+    description: CustomCMD management
+    aliases: [ cc, mycmd, customcommand ]
     permission: customcommand.admin

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>xd.firewoflik</groupId>
-    <artifactId>CustomCommand</artifactId>
+    <artifactId>CustomCMD</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>CustomCommand</name>
+    <name>CustomCMD</name>
 
     <properties>
         <java.version>21</java.version>

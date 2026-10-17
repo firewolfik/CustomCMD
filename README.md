@@ -1,4 +1,4 @@
-# CustomCommand
+# CustomCMD
 
 Лёгкий, быстрый и безопасный плагин для создания кастомных команд на серверах Minecraft (Paper / Spigot 1.21+).
 
@@ -32,15 +32,15 @@
 
 ## Команды плагина
 
-- `/customcommand reload` (или `/cc rl`) — перезагрузка конфигурации и команд.
-- `/customcommand list` (или `/cc list`) — количество загруженных команд.
-- `/customcommand help` — справка.
+- `/customcmd reload` (или `/cc rl`) — перезагрузка конфигурации и команд.
+- `/customcmd list` (или `/cc list`) — количество загруженных команд.
+- `/customcmd help` — справка.
 
 ---
 
 ## Пример конфигурации команды
 
-Создавайте `.yml` файлы в папке `plugins/CustomCommand/commands/`:
+Создавайте `.yml` файлы в папке `plugins/CustomCMD/commands/`:
 
 ```yaml
 rules:
