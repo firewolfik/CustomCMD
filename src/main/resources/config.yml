@@ -1,0 +1,3 @@
+messages:
+  no_permission: "&c☠ &fУ вас нет прав"
+  unknown_subcommand: "&e● &fИспользование /customcmd help"

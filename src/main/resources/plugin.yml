@@ -1,0 +1,12 @@
+name: CustomCommand
+version: '${project.version}'
+main: xd.firewoflik.cc.Main
+api-version: '1.21'
+authors: [ firewolfik ]
+softdepend: [ Vault, PlaceholderAPI ]
+
+commands:
+  customcommand:
+    aliases: [ cc, mycmd, mycommand, customcmd ]
+    permission: customcommand.admin
+    permission-message: "&c☠ &fУ вас нет прав"
