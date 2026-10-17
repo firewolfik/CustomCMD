@@ -73,7 +73,6 @@ public class CommandManager {
         }
 
         syncCommands();
-        plugin.getLogger().info("Loaded " + loaded + " custom commands.");
     }
 
     public void unregisterAll() {
@@ -104,6 +103,10 @@ public class CommandManager {
                 player.updateCommands();
             } catch (Throwable ignored) {}
         }
+    }
+
+    public List<DynamicCustomCommand> getRegisteredCommands() {
+        return Collections.unmodifiableList(registered);
     }
 
     public int getLoadedCount() {
@@ -183,13 +186,14 @@ public class CommandManager {
             builder.permission(perm.trim());
         }
 
-        builder.permissionMessage(sec.getString("permission_message", "&cУ вас нет прав на эту команду!"));
+        MessageManager mm = plugin.getMessageManager();
+        builder.permissionMessage(sec.getString("permission_message", mm.get("default_permission_message")));
         builder.cooldownSeconds(sec.getInt("cooldown", 0));
-        builder.cooldownMessage(sec.getString("cooldown_message", "&cПодождите %time% сек. перед повторным вводом!"));
+        builder.cooldownMessage(sec.getString("cooldown_message", mm.get("default_cooldown_message")));
         builder.minArgs(sec.getInt("min_args", 0));
-        builder.minArgsMessage(sec.getString("min_args_message", "&cНедостаточно аргументов!"));
+        builder.minArgsMessage(sec.getString("min_args_message", mm.get("default_min_args_message")));
         builder.cost(sec.getDouble("cost", 0.0));
-        builder.costMessage(sec.getString("cost_message", "&cНедостаточно средств! Нужно: %cost%$"));
+        builder.costMessage(sec.getString("cost_message", mm.get("default_cost_message")));
 
         builder.sound(sec.getString("sound", null));
         builder.soundVolume((float) sec.getDouble("sound_volume", 1.0));

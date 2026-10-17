@@ -2,11 +2,12 @@ name: CustomCommand
 version: '${project.version}'
 main: xd.firewoflik.cc.Main
 api-version: '1.21'
+load: POSTWORLD
 authors: [ firewolfik ]
 softdepend: [ Vault, PlaceholderAPI ]
 
 commands:
   customcommand:
-    aliases: [ cc, mycmd, mycommand, customcmd ]
+    description: CustomCommand management
+    aliases: [ cc, mycmd, customcmd ]
     permission: customcommand.admin
-    permission-message: "&c☠ &fУ вас нет прав"

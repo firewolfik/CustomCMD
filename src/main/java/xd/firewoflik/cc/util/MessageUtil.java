@@ -24,18 +24,12 @@ public final class MessageUtil {
 
     private MessageUtil() {}
 
-    /**
-     * Converts a string with both MiniMessage tags (<red>, <gradient...>)
-     * and legacy color codes (&a, &#ff0000, §a) into a Component.
-     */
     public static Component parse(String input) {
         if (input == null || input.isEmpty()) {
             return Component.empty();
         }
 
-        // If it contains MiniMessage tags (<...>)
         if (input.contains("<") && input.contains(">")) {
-            // First convert &#RRGGBB to <#RRGGBB>
             Matcher matcher = HEX_COLOR_PATTERN.matcher(input);
             StringBuffer sb = new StringBuffer();
             while (matcher.find()) {
@@ -44,18 +38,15 @@ public final class MessageUtil {
             matcher.appendTail(sb);
             String transformed = sb.toString();
 
-            // Convert legacy & codes to MiniMessage tags if any
             transformed = convertLegacyToMiniMessage(transformed);
 
             try {
                 return MINI_MESSAGE.deserialize(transformed);
             } catch (Exception e) {
-                // Fallback to legacy serializer if MiniMessage fails
                 return LEGACY_SERIALIZER.deserialize(input);
             }
         }
 
-        // Otherwise deserialize standard legacy format (&a, &#123456, §a)
         if (input.contains("§")) {
             return SECTION_SERIALIZER.deserialize(input);
         }
@@ -121,7 +112,6 @@ public final class MessageUtil {
             Sound bukkitSound = Sound.valueOf(name.toUpperCase());
             player.playSound(player.getLocation(), bukkitSound, volume, pitch);
         } catch (IllegalArgumentException e) {
-            // Support custom/minecraft namespaced sounds: "minecraft:entity.player.levelup" or "custom.sound"
             try {
                 player.playSound(player.getLocation(), name.toLowerCase(), volume, pitch);
             } catch (Throwable ignored) {}

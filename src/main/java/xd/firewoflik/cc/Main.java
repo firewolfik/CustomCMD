@@ -6,11 +6,13 @@ import xd.firewoflik.cc.command.AdminCommand;
 import xd.firewoflik.cc.hook.VaultHook;
 import xd.firewoflik.cc.manager.CommandManager;
 import xd.firewoflik.cc.manager.CooldownManager;
+import xd.firewoflik.cc.manager.MessageManager;
 import xd.firewoflik.cc.service.CommandExecutorService;
 
 public final class Main extends JavaPlugin {
 
     private static Main instance;
+    private MessageManager messageManager;
     private VaultHook vaultHook;
     private CooldownManager cooldownManager;
     private CommandExecutorService executorService;
@@ -21,6 +23,7 @@ public final class Main extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
 
+        this.messageManager = new MessageManager(this);
         this.vaultHook = new VaultHook();
         this.vaultHook.init();
 
@@ -63,6 +66,10 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public MessageManager getMessageManager() {
+        return messageManager;
     }
 
     public CommandManager getCommandManager() {

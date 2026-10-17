@@ -6,6 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 import xd.firewoflik.cc.Main;
+import xd.firewoflik.cc.manager.MessageManager;
+import xd.firewoflik.cc.model.CustomCommandModel;
 import xd.firewoflik.cc.util.MessageUtil;
 
 import java.util.ArrayList;
@@ -23,17 +25,17 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        MessageManager mm = plugin.getMessageManager();
+
         if (!sender.hasPermission("customcommand.admin")) {
-            MessageUtil.sendMessage(sender, "&c☠ &fУ вас нет прав");
+            MessageUtil.sendMessage(sender, mm.get("no_permission"));
             return true;
         }
 
         if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-            MessageUtil.sendMessage(sender, "&8&m----------------------------------------");
-            MessageUtil.sendMessage(sender, "&6&lCustomCommand &7v" + plugin.getDescription().getVersion());
-            MessageUtil.sendMessage(sender, "&e/" + label + " reload &8- &7Перезагрузить плагин");
-            MessageUtil.sendMessage(sender, "&e/" + label + " list &8- &7Список команд");
-            MessageUtil.sendMessage(sender, "&8&m----------------------------------------");
+            for (String line : mm.getList("help")) {
+                MessageUtil.sendMessage(sender, line.replace("%label%", label));
+            }
             return true;
         }
 
@@ -42,17 +44,46 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             plugin.reloadPlugin();
             long time = System.currentTimeMillis() - start;
             int count = plugin.getCommandManager().getLoadedCount();
-            MessageUtil.sendMessage(sender, "&aПлагин успешно перезагружен &7(" + time + "ms)&a! Загружено команд: &e" + count);
+            String msg = mm.get("reload_success")
+                    .replace("%time%", String.valueOf(time))
+                    .replace("%count%", String.valueOf(count))
+                    .replace("%label%", label);
+            MessageUtil.sendMessage(sender, msg);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("list")) {
-            int count = plugin.getCommandManager().getLoadedCount();
-            MessageUtil.sendMessage(sender, "&7Загружено команд: &e" + count);
+            List<DynamicCustomCommand> commands = plugin.getCommandManager().getRegisteredCommands();
+            int count = commands.size();
+
+            if (count == 0) {
+                MessageUtil.sendMessage(sender, mm.get("list_empty"));
+                return true;
+            }
+
+            String header = mm.get("list_header").replace("%count%", String.valueOf(count));
+            MessageUtil.sendMessage(sender, header);
+
+            String format = mm.get("list_format");
+            for (DynamicCustomCommand cmd : commands) {
+                CustomCommandModel model = cmd.getModel();
+                String aliasesStr = model.getAliases().isEmpty() ? "-" : String.join(", ", model.getAliases());
+                String line = format
+                        .replace("%command%", model.getName())
+                        .replace("%type%", model.getType().name())
+                        .replace("%aliases%", aliasesStr)
+                        .replace("%permission%", model.getPermission() == null ? "-" : model.getPermission());
+                MessageUtil.sendMessage(sender, line);
+            }
+
+            String footer = mm.get("list_footer").replace("%count%", String.valueOf(count));
+            if (!footer.isEmpty()) {
+                MessageUtil.sendMessage(sender, footer);
+            }
             return true;
         }
 
-        MessageUtil.sendMessage(sender, "&cНеизвестная подкоманда! Используйте &e/" + label + " help");
+        MessageUtil.sendMessage(sender, mm.get("unknown_subcommand").replace("%label%", label));
         return true;
     }
 

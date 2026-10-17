@@ -11,35 +11,23 @@ public class CustomCommandModel {
     private final CommandType type;
     private final List<String> lines;
     private final String aliasTarget;
-    
-    // Title & Actionbar
     private final String title;
     private final String subtitle;
     private final int fadeIn;
     private final int stay;
     private final int fadeOut;
     private final String actionBar;
-
-    // Permissions & Cooldowns
     private final String permission;
     private final String permissionMessage;
     private final int cooldownSeconds;
     private final String cooldownMessage;
-
-    // Arguments validation
     private final int minArgs;
     private final String minArgsMessage;
-
-    // Economy
     private final double cost;
     private final String costMessage;
-
-    // Sound
     private final String sound;
     private final float soundVolume;
     private final float soundPitch;
-
-    // Execution restrictions
     private final boolean onlyPlayer;
     private final List<String> tabCompletions;
 
@@ -111,13 +99,13 @@ public class CustomCommandModel {
         private int fadeOut = 10;
         private String actionBar = "";
         private String permission = null;
-        private String permissionMessage = "&cУ вас нет прав на использование этой команды!";
+        private String permissionMessage = "";
         private int cooldownSeconds = 0;
-        private String cooldownMessage = "&cПодождите %time% сек. перед повторным использованием!";
+        private String cooldownMessage = "";
         private int minArgs = 0;
-        private String minArgsMessage = "&cНедостаточно аргументов!";
+        private String minArgsMessage = "";
         private double cost = 0.0;
-        private String costMessage = "&cВам нужно %cost%$ для выполнения этой команды!";
+        private String costMessage = "";
         private String sound = null;
         private float soundVolume = 1.0f;
         private float soundPitch = 1.0f;

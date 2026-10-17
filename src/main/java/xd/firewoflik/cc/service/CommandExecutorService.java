@@ -36,7 +36,7 @@ public class CommandExecutorService {
         Player player = (sender instanceof Player p) ? p : null;
 
         if (cmd.isOnlyPlayer() && player == null) {
-            MessageUtil.sendMessage(sender, "&cКоманда доступна только игрокам!");
+            MessageUtil.sendMessage(sender, plugin.getMessageManager().get("only_player"));
             return true;
         }
 
@@ -68,7 +68,7 @@ public class CommandExecutorService {
                     return true;
                 }
                 if (!vaultHook.withdraw(player, cmd.getCost())) {
-                    MessageUtil.sendMessage(player, "&cОшибка списания средств!");
+                    MessageUtil.sendMessage(player, plugin.getMessageManager().get("economy_error"));
                     return true;
                 }
             }

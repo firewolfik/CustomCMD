@@ -18,7 +18,6 @@ public final class PlaceholderUtil {
 
         Player player = (sender instanceof Player) ? (Player) sender : null;
 
-        // Player placeholders
         if (player != null) {
             text = text.replace("%player%", player.getName())
                        .replace("$player", player.getName())
@@ -33,7 +32,6 @@ public final class PlaceholderUtil {
                        .replace("%world%", "world");
         }
 
-        // Args placeholders
         if (args != null) {
             String allArgs = String.join(" ", args);
             text = text.replace("%args%", allArgs)
@@ -55,7 +53,6 @@ public final class PlaceholderUtil {
                        .replace("$args_length", "0");
         }
 
-        // PlaceholderAPI support
         if (HAS_PAPI && player != null) {
             try {
                 text = PlaceholderAPI.setPlaceholders(player, text);
